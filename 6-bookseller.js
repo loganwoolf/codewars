@@ -4,6 +4,9 @@ c = ["A", "B", "C", "W"]
 
 
 function stockList (listOfArt, listOfCat) {
+  if (!listOfArt || !listOfCat) {
+    return ''
+  }
   let outputObj = {}
   for (let category of listOfCat) {
     outputObj[category] = 0
@@ -19,12 +22,14 @@ function stockList (listOfArt, listOfCat) {
     }
   }
   let outputArr = []
+  let noStock = true
   for (let key in outputObj) {
     let value = outputObj[key]
     let strSegment = `(${key} : ${value})`
     outputArr.push(strSegment)
+    value > 0 ? noStock = false : undefined
   }
-  
+  if (noStock) {return ''}
   return outputArr.join(' - ')
 }
 console.log(
