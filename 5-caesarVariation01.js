@@ -3,12 +3,13 @@ function movingShift ( clearText, shift ) {
   for (let i in clearText) {
     if (clearText[i] !== ' ') {
       let cryptCode = +clearText.charCodeAt(i) + +i + shift
+      console.log(cryptCode)
       cryptText += String.fromCharCode(cryptCode)
-    } else if (clearText[i] !== ' ') {
+    } else if (clearText[i] === ' ') {
       cryptText += ' '
     }
   }
-
+  console.log(cryptText)
   return cryptText
 }
 
@@ -30,6 +31,6 @@ function demovingShift ( cryptText, shift ) {
 
 console.log(
   demovingShift(
-    movingShift('hello', 1), 1
+    movingShift('I should have known that you would have a perfect answer for me', 1), 1
   )
 )
