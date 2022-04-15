@@ -24,8 +24,8 @@ Note: the test cases will utilize the user-provided equals method.
 */
 
 class Vector {
-  constructor(...args) {
-    this.dim = args;
+  constructor(arr) {
+    this.dim = arr;
   }
 
   add(vec) {
@@ -33,7 +33,7 @@ class Vector {
       throw new Error('Error: incompatible vectors');
     }
     const outputArr = this.dim.map((x, i) => x + vec.dim[i]);
-    return new Vector(...outputArr);
+    return new Vector(outputArr);
   }
 }
 
