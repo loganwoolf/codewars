@@ -35,9 +35,22 @@ class Vector {
     const outputArr = this.dim.map((x, i) => x + vec.dim[i]);
     return new Vector(outputArr);
   }
+
+  equals(vec) {
+    if (this.dim.length !== vec.dim.length) {
+      throw new Error('incompatible vectors');
+    }
+    let flag = true;
+    this.dim.forEach((value, i) => {
+      if (value !== vec.dim[i]) {
+        flag = false;
+      }
+    });
+    return flag;
+  }
 }
 
-const a = new Vector(1, 2, 3);
-const b = new Vector(2, 3, 4);
+const a = new Vector([1, 2, 3]);
+const b = new Vector([1, 2, 3]);
 /* eslint-disable no-console */
-console.log(a.add(b));
+console.log(a.add(b).equals(new Vector([2, 4, 6])));
