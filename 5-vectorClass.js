@@ -62,12 +62,11 @@ class Vector {
     if (this.dim.length !== vec.dim.length) {
       return false;
     }
-
     return this.dim.every((value, i) => value === vec.dim[i]);
   }
 
   toString() {
-    return `(${this.dim.join(', ')})`;
+    return `(${this.dim.join()})`;
   }
 }
 
