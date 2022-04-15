@@ -60,20 +60,14 @@ class Vector {
 
   equals(vec) {
     if (this.dim.length !== vec.dim.length) {
-      throw new Error('incompatible vectors');
+      return false;
     }
-    // below could be refactored to use .every()
-    let flag = true;
-    this.dim.forEach((value, i) => {
-      if (value !== vec.dim[i]) {
-        flag = false;
-      }
-    });
-    return flag;
+
+    return this.dim.every((value, i) => value === vec.dim[i]);
   }
 }
 
 const a = new Vector([1, 3, 2]);
-// const b = new Vector([1, 2, 3]);
+const b = new Vector([1, 2, 3]);
 /* eslint-disable no-console */
-console.log(a.norm() === Math.sqrt(14));
+console.log(a.add(b).equals(new Vector([2, 5, 5])));
