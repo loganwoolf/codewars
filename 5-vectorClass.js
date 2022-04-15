@@ -54,6 +54,10 @@ class Vector {
     );
   }
 
+  norm() {
+    return Math.sqrt(this.dim.reduce((acc, value) => value * value + acc, 0));
+  }
+
   equals(vec) {
     if (this.dim.length !== vec.dim.length) {
       throw new Error('incompatible vectors');
@@ -69,7 +73,7 @@ class Vector {
   }
 }
 
-const a = new Vector([1, 2, 3]);
-const b = new Vector([1, 2, 3]);
+const a = new Vector([1, 3, 2]);
+// const b = new Vector([1, 2, 3]);
 /* eslint-disable no-console */
-console.log(a.dot(b) === 14);
+console.log(a.norm() === Math.sqrt(14));
