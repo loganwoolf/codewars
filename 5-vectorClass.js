@@ -65,9 +65,12 @@ class Vector {
 
     return this.dim.every((value, i) => value === vec.dim[i]);
   }
+
+  toString() {
+    return `(${this.dim.join(', ')})`;
+  }
 }
 
 const a = new Vector([1, 3, 2]);
-const b = new Vector([1, 2, 3]);
 /* eslint-disable no-console */
-console.log(a.add(b).equals(new Vector([2, 5, 5])));
+console.log(a.toString());
