@@ -32,16 +32,14 @@ class Vector {
     if (this.dim.length !== vec.dim.length) {
       throw new Error('incompatible vectors');
     }
-    const outputArr = this.dim.map((x, i) => x + vec.dim[i]);
-    return new Vector(outputArr);
+    return new Vector(this.dim.map((value, i) => value + vec.dim[i]));
   }
 
   subtract(vec) {
     if (this.dim.length !== vec.dim.length) {
       throw new Error('incompatible vectors');
     }
-    const outputArr = this.dim.map((x, i) => x - vec.dim[i]);
-    return new Vector(outputArr);
+    return new Vector(this.dim.map((value, i) => value - vec.dim[i]));
   }
 
   dot(vec) {
