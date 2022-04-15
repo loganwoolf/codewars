@@ -44,10 +44,21 @@ class Vector {
     return new Vector(outputArr);
   }
 
+  dot(vec) {
+    if (this.dim.length !== vec.dim.length) {
+      throw new Error('incompatible vectors');
+    }
+    return this.dim.reduce(
+      (acc, value, index) => value * vec.dim[index] + acc,
+      0,
+    );
+  }
+
   equals(vec) {
     if (this.dim.length !== vec.dim.length) {
       throw new Error('incompatible vectors');
     }
+    // below could be refactored to use .every()
     let flag = true;
     this.dim.forEach((value, i) => {
       if (value !== vec.dim[i]) {
@@ -61,4 +72,4 @@ class Vector {
 const a = new Vector([1, 2, 3]);
 const b = new Vector([1, 2, 3]);
 /* eslint-disable no-console */
-console.log(a.subtract(b).equals(new Vector([0, 0, 0])));
+console.log(a.dot(b) === 14);
