@@ -24,10 +24,8 @@ Note: the test cases will utilize the user-provided equals method.
 */
 
 class Vector {
-  constructor(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+  constructor(...args) {
+    this.dim = args;
   }
 
   add(vec) {
