@@ -29,10 +29,11 @@ class Vector {
   }
 
   add(vec) {
-    const newX = this.x + vec.x;
-    const newY = this.y + vec.y;
-    const newZ = this.z + vec.z;
-    return new Vector(newX, newY, newZ);
+    if (this.dim.length !== vec.dim.length) {
+      throw new Error('Error: incompatible vectors');
+    }
+    const outputArr = this.dim.map((x, i) => x + vec.dim[i]);
+    return new Vector(...outputArr);
   }
 }
 
