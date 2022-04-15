@@ -30,9 +30,17 @@ class Vector {
 
   add(vec) {
     if (this.dim.length !== vec.dim.length) {
-      throw new Error('Error: incompatible vectors');
+      throw new Error('incompatible vectors');
     }
     const outputArr = this.dim.map((x, i) => x + vec.dim[i]);
+    return new Vector(outputArr);
+  }
+
+  subtract(vec) {
+    if (this.dim.length !== vec.dim.length) {
+      throw new Error('incompatible vectors');
+    }
+    const outputArr = this.dim.map((x, i) => x - vec.dim[i]);
     return new Vector(outputArr);
   }
 
@@ -53,4 +61,4 @@ class Vector {
 const a = new Vector([1, 2, 3]);
 const b = new Vector([1, 2, 3]);
 /* eslint-disable no-console */
-console.log(a.add(b).equals(new Vector([2, 4, 6])));
+console.log(a.subtract(b).equals(new Vector([0, 0, 0])));
