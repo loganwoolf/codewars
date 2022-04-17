@@ -24,3 +24,53 @@ generateBC("www.very-long-site_name-to-make-a-silly-yet-meaningful-example.com/u
 You will always be provided valid url to webpages in common formats, so you probably shouldn't bother validating them.
 */
 
+function generateBC(url, delim) {
+  const makeName = (component) => {
+    const ignore = [
+      'the',
+      'of',
+      'in',
+      'from',
+      'by',
+      'with',
+      'and',
+      'or',
+      'for',
+      'to',
+      'at',
+      'a',
+    ];
+    if (component.length > 30) {
+      return component
+        .split(/[-_+]/)
+        .map((x) => (ignore.includes(x) ? '' : x[0].toUpperCase()))
+        .join('');
+    }
+    return component;
+  };
+  const makeRoute = (arr, index) => {};
+
+  const components = url.split('/');
+  let breadcrumb = '';
+
+  components.forEach((item, index, arr) => {
+    if (index === 0) {
+      breadcrumb += '<a href="/">HOME</a>';
+    } else if (index === arr.length - 1) {
+      breadcrumb += delim;
+      breadcrumb += `<span class="active">${makeName(item)}</span>`;
+    } else {
+      breadcrumb += delim;
+      breadcrumb += `<a href="/${item}">${makeName(item)}</a>`;
+    }
+  });
+  return breadcrumb;
+}
+
+// eslint-disable-next-line no-console
+console.log(
+  generateBC(
+    'www.very-long-site_name-to-make-a-silly-yet-meaningful-example.com/very-long-site_name-to-make-a-silly-yet-meaningful-example/giacomo-sorbi',
+    ' + ',
+  ),
+);
