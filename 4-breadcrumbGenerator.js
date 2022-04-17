@@ -46,7 +46,7 @@ function generateBC(url, delim) {
         .map((x) => (ignore.includes(x) ? '' : x[0].toUpperCase()))
         .join('');
     }
-    return component;
+    return component.toUpperCase().replace(/[-_+]/, ' ');
   };
   const makeRoute = (arr, index) => {};
 
@@ -70,7 +70,7 @@ function generateBC(url, delim) {
 // eslint-disable-next-line no-console
 console.log(
   generateBC(
-    'www.very-long-site_name-to-make-a-silly-yet-meaningful-example.com/very-long-site_name-to-make-a-silly-yet-meaningful-example/giacomo-sorbi',
+    'www.very-long-site_name-to-make-a-silly-yet-meaningful-example.com/people-list/very-long-site_name-to-make-a-silly-yet-meaningful-example/giacomo-sorbi',
     ' + ',
   ),
 );
