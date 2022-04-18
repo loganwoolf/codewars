@@ -51,7 +51,7 @@ function generateBC(url, delim) {
   const components = url.split('/');
   const tail = components.length - 1;
   const regex = /[.#?]/;
-  if (components[tail].search(regex)) {
+  if (components[tail].search(regex) >= 0) {
     components[tail] = components[tail].slice(0, components[tail].search(regex));
   }
   if (components[tail].startsWith('index')) {
@@ -76,3 +76,4 @@ function generateBC(url, delim) {
 
 // eslint-disable-next-line no-console
 console.log(generateBC('mysite.com/pictures/holidays.html#About', ' : '));
+console.log(generateBC('www.codewars.com/users/GiacomoSorbi', ' : '));
