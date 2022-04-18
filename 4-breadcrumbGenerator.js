@@ -48,11 +48,16 @@ function generateBC(url, delim) {
     }
     return component.toUpperCase().replace(/[-_+]/, ' ');
   };
-  const makeRoute = (arr, index) => {};
-
   const components = url.split('/');
+  const tail = components.length - 1;
+  if (components[tail].includes('.')) {
+    components[tail] = components[tail].slice(0, components[tail].indexOf('.'));
+  }
+  if (components[tail].startsWith('index')) {
+    components.pop();
+  }
   let breadcrumb = '';
-
+  let routeString = '/';
   components.forEach((item, index, arr) => {
     if (index === 0) {
       breadcrumb += '<a href="/">HOME</a>';
@@ -60,17 +65,13 @@ function generateBC(url, delim) {
       breadcrumb += delim;
       breadcrumb += `<span class="active">${makeName(item)}</span>`;
     } else {
+      routeString += `${item}/`;
       breadcrumb += delim;
-      breadcrumb += `<a href="/${item}">${makeName(item)}</a>`;
+      breadcrumb += `<a href="${routeString}">${makeName(item)}</a>`;
     }
   });
   return breadcrumb;
 }
 
 // eslint-disable-next-line no-console
-console.log(
-  generateBC(
-    'www.very-long-site_name-to-make-a-silly-yet-meaningful-example.com/people-list/very-long-site_name-to-make-a-silly-yet-meaningful-example/giacomo-sorbi',
-    ' + ',
-  ),
-);
+console.log(generateBC('mysite.com/pictures/holidays.html', ' : '));
