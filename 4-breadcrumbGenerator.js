@@ -48,6 +48,7 @@ function generateBC(url, delim) {
     }
     return component.toUpperCase().replace(/[-_+]/g, ' ');
   };
+
   const components = url.split('/');
   if (components[0].includes('http')) {
     components.shift();
@@ -64,6 +65,7 @@ function generateBC(url, delim) {
   if (components[tail].startsWith('index') || components[tail] === '') {
     components.pop();
   }
+
   let breadcrumb = '';
   let routeString = '/';
   components.forEach((item, index, arr) => {
@@ -82,6 +84,7 @@ function generateBC(url, delim) {
       breadcrumb += `<a href="${routeString}">${makeName(item)}</a>`;
     }
   });
+
   return breadcrumb;
 }
 
