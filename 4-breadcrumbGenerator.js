@@ -46,7 +46,7 @@ function generateBC(url, delim) {
         .map((x) => (ignore.includes(x) ? '' : x[0].toUpperCase()))
         .join('');
     }
-    return component.toUpperCase().replace(/[-_+]/, ' ');
+    return component.toUpperCase().replace(/[-_+]/g, ' ');
   };
   const components = url.split('/');
   if (components[0].includes('http')) {
