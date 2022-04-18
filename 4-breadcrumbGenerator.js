@@ -50,8 +50,9 @@ function generateBC(url, delim) {
   };
   const components = url.split('/');
   const tail = components.length - 1;
-  if (components[tail].includes('.')) {
-    components[tail] = components[tail].slice(0, components[tail].indexOf('.'));
+  const regex = /[.#?]/;
+  if (components[tail].search(regex)) {
+    components[tail] = components[tail].slice(0, components[tail].search(regex));
   }
   if (components[tail].startsWith('index')) {
     components.pop();
@@ -74,4 +75,4 @@ function generateBC(url, delim) {
 }
 
 // eslint-disable-next-line no-console
-console.log(generateBC('mysite.com/pictures/holidays.html', ' : '));
+console.log(generateBC('mysite.com/pictures/holidays.html#About', ' : '));
