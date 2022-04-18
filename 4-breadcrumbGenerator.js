@@ -68,6 +68,10 @@ function generateBC(url, delim) {
   let routeString = '/';
   components.forEach((item, index, arr) => {
     if (index === 0) {
+      if (arr.length === 1) {
+        breadcrumb += '<span class="active">HOME</span>';
+        return;
+      }
       breadcrumb += '<a href="/">HOME</a>';
     } else if (index === arr.length - 1) {
       breadcrumb += delim;
