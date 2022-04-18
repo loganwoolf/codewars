@@ -61,7 +61,7 @@ function generateBC(url, delim) {
       components[tail].search(regex),
     );
   }
-  if (components[tail].startsWith('index')) {
+  if (components[tail].startsWith('index') || components[tail] === '') {
     components.pop();
   }
   let breadcrumb = '';
