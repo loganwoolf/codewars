@@ -49,10 +49,17 @@ function generateBC(url, delim) {
     return component.toUpperCase().replace(/[-_+]/, ' ');
   };
   const components = url.split('/');
+  if (components[0].includes('http')) {
+    components.shift();
+    components.shift();
+  }
   const tail = components.length - 1;
   const regex = /[.#?]/;
   if (components[tail].search(regex) >= 0) {
-    components[tail] = components[tail].slice(0, components[tail].search(regex));
+    components[tail] = components[tail].slice(
+      0,
+      components[tail].search(regex),
+    );
   }
   if (components[tail].startsWith('index')) {
     components.pop();
@@ -76,4 +83,5 @@ function generateBC(url, delim) {
 
 // eslint-disable-next-line no-console
 console.log(generateBC('mysite.com/pictures/holidays.html#About', ' : '));
-console.log(generateBC('www.codewars.com/users/GiacomoSorbi', ' : '));
+// eslint-disable-next-line no-console
+console.log(generateBC('http://www.codewars.com/users/GiacomoSorbi', ' : '));
