@@ -18,8 +18,7 @@ Error checking for text strings or other invalid inputs is not required,
 only valid positive non-zero integers will be passed into the function.
 */
 
-function narcissistic(value) {
-  // Code me to return true or false
-}
+const narcissistic = (num) => num.toString().split('').reduce((acc, item, index, array) => item ** array.length + acc, 0) === num;
 
+// eslint-disable-next-line no-console
 console.log(narcissistic(127));
