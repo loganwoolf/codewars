@@ -18,7 +18,6 @@ Test cases will provide various array and string sizes (squared arrays up to 150
 function checkWord(board, word) {
   // find all instances of first letter
   let initialPositions = [];
-  let index = 0;
 
   for (const row in board) {
     for (const column in board[+row]) {
@@ -29,10 +28,43 @@ function checkWord(board, word) {
   }
 
   // search neighbours for nth letter
-  function searchNeighbours(position) {
-    while (index < word.length) {
-      
+  function searchNeighbours(
+    position,
+    currentSearchedPositions = [],
+    currentLetterIndex = 0,
+  ) {
+    // define limits of search
+    const firstSearchRow = position[0] === 0 ? 0 : position[0] - 1;
+    const firstSearchCol = position[1] === 0 ? 0 : position[1] - 1;
+    const lastSearchRow =
+      position[0] === board.length - 1 ? board.length - 1 : position[0] + 1;
+    const lastSearchCol =
+      position[1] === board.length - 1 ? board.length - 1 : position[1] + 1;
+    
+    for (let row = firstSearchRow; row <= lastSearchRow; row++) {
+      for (let col = firstSearchCol; col <= lastSearchCol; col++) {
+        if (currentLetterIndex >= word.length) {
+          return true;
+        }
+        if (row === position[0] && col === position[1]) {
+          continue;
+        }
+        if (board[row][col] === word[currentLetterIndex]) {
+          currentSearchedPositions.push([row, col]);
+          currentLetterIndex++;
+          searchNeighbours(
+            [row, col],
+            currentSearchedPositions,
+            currentLetterIndex,
+          );
+        }
+      }
     }
+  }
+
+  for (const position of initialPositions) {
+    searchNeighbours(position);
+    return false;
   }
 }
 
@@ -42,5 +74,4 @@ const testBoard = [
   ['I', 'A', 'I', 'S'],
   ['B', 'Y', 'O', 'R'],
 ];
-
-checkWord(testBoard, 'A');
+console.log(checkWord(testBoard, 'RA'));
