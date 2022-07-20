@@ -43,7 +43,7 @@ function checkWord(board, word) {
 
     for (let row = firstSearchRow; row <= lastSearchRow; row++) {
       for (let col = firstSearchCol; col <= lastSearchCol; col++) {
-        if (currentLetterIndex > word.length) {
+        if (currentLetterIndex >= word.length) {
           return true;
         }
         if (row === position[0] && col === position[1]) {
@@ -52,7 +52,7 @@ function checkWord(board, word) {
         if (board[row][col] === word[currentLetterIndex]) {
           currentSearchedPositions.push([row, col]);
           currentLetterIndex++;
-          searchNeighbours(
+          return searchNeighbours(
             [row, col],
             currentSearchedPositions,
             currentLetterIndex,
@@ -60,10 +60,13 @@ function checkWord(board, word) {
         }
       }
     }
+    return false;
   }
 
   for (const initialPosition of initialPositions) {
-    searchNeighbours(initialPosition);
+    if (searchNeighbours(initialPosition)) {
+      return true;
+    }
     return false;
   }
 }
@@ -74,4 +77,4 @@ const testBoard = [
   ['I', 'A', 'I', 'S'],
   ['B', 'Y', 'O', 'R'],
 ];
-console.log(checkWord(testBoard, 'LISCERA'));
+console.log(checkWord(testBoard, 'LER'));
