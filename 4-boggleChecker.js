@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 /* eslint-disable max-len */
 /*
 Write a function that determines whether a string is a valid guess in a Boggle board, as per the rules of Boggle. A Boggle board is a 2D array of individual characters, e.g.:
@@ -29,15 +30,13 @@ function checkWord(board, word) {
 
   function searchNeighbours(
     position,
-    currentSearchedPositions = [position],
+    currentFoundPositions = [position],
     currentLetterIndex = 1,
   ) {
     const firstSearchRow = position[0] === 0 ? 0 : position[0] - 1;
     const firstSearchCol = position[1] === 0 ? 0 : position[1] - 1;
-    const lastSearchRow =
-      position[0] === board.length - 1 ? board.length - 1 : position[0] + 1;
-    const lastSearchCol =
-      position[1] === board.length - 1 ? board.length - 1 : position[1] + 1;
+    const lastSearchRow = position[0] === board.length - 1 ? board.length - 1 : position[0] + 1;
+    const lastSearchCol = position[1] === board.length - 1 ? board.length - 1 : position[1] + 1;
 
     for (let row = firstSearchRow; row <= lastSearchRow; row++) {
       for (let col = firstSearchCol; col <= lastSearchCol; col++) {
@@ -48,7 +47,7 @@ function checkWord(board, word) {
           continue;
         }
         let taken = false;
-        for (const pair of currentSearchedPositions) {
+        for (const pair of currentFoundPositions) {
           if (pair[0] === row && pair[1] === col) {
             taken = true;
           }
@@ -60,7 +59,7 @@ function checkWord(board, word) {
           if (
             searchNeighbours(
               [row, col],
-              [...currentSearchedPositions, [row, col]],
+              [...currentFoundPositions, [row, col]],
               currentLetterIndex + 1,
             )
           ) {
@@ -87,5 +86,6 @@ const testBoard = [
   ['I', 'A', 'I', 'S'],
   ['B', 'Y', 'O', 'R'],
 ];
-// console.log(checkWord(testBoard, process.argv[2]));
+
+// eslint-disable-next-line no-console
 console.log(checkWord(testBoard, 'EARE'));
