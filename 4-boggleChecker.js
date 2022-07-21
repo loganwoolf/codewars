@@ -50,13 +50,16 @@ function checkWord(board, word) {
           continue;
         }
         if (board[row][col] === word[currentLetterIndex]) {
-          currentSearchedPositions.push([row, col]);
-          currentLetterIndex++;
-          return searchNeighbours(
-            [row, col],
-            currentSearchedPositions,
-            currentLetterIndex,
-          );
+          if (
+            searchNeighbours(
+              [row, col],
+              [...currentSearchedPositions, [row, col]],
+              currentLetterIndex + 1,
+            )
+          ) {
+            return true;
+          }
+          continue;
         }
       }
     }
@@ -77,4 +80,4 @@ const testBoard = [
   ['I', 'A', 'I', 'S'],
   ['B', 'Y', 'O', 'R'],
 ];
-console.log(checkWord(testBoard, 'LER'));
+console.log(checkWord(testBoard, 'NEALN'));
