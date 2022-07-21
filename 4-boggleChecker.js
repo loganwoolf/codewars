@@ -27,13 +27,11 @@ function checkWord(board, word) {
     }
   }
 
-  // search neighbours for nth letter
   function searchNeighbours(
     position,
     currentSearchedPositions = [position],
     currentLetterIndex = 1,
   ) {
-    // define limits of search
     const firstSearchRow = position[0] === 0 ? 0 : position[0] - 1;
     const firstSearchCol = position[1] === 0 ? 0 : position[1] - 1;
     const lastSearchRow =
@@ -47,6 +45,15 @@ function checkWord(board, word) {
           return true;
         }
         if (row === position[0] && col === position[1]) {
+          continue;
+        }
+        let taken = false;
+        for (const pair of currentSearchedPositions) {
+          if (pair[0] === row && pair[1] === col) {
+            taken = true;
+          }
+        }
+        if (taken) {
           continue;
         }
         if (board[row][col] === word[currentLetterIndex]) {
@@ -70,8 +77,8 @@ function checkWord(board, word) {
     if (searchNeighbours(initialPosition)) {
       return true;
     }
-    return false;
   }
+  return false;
 }
 
 const testBoard = [
@@ -80,4 +87,5 @@ const testBoard = [
   ['I', 'A', 'I', 'S'],
   ['B', 'Y', 'O', 'R'],
 ];
-console.log(checkWord(testBoard, 'NEALN'));
+// console.log(checkWord(testBoard, process.argv[2]));
+console.log(checkWord(testBoard, 'EARE'));
