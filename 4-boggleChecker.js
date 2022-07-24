@@ -35,8 +35,10 @@ function checkWord(board, word) {
   ) {
     const firstSearchRow = position[0] === 0 ? 0 : position[0] - 1;
     const firstSearchCol = position[1] === 0 ? 0 : position[1] - 1;
-    const lastSearchRow = position[0] === board.length - 1 ? board.length - 1 : position[0] + 1;
-    const lastSearchCol = position[1] === board.length - 1 ? board.length - 1 : position[1] + 1;
+    const lastSearchRow =
+      position[0] === board.length - 1 ? board.length - 1 : position[0] + 1;
+    const lastSearchCol =
+      position[1] === board.length - 1 ? board.length - 1 : position[1] + 1;
 
     for (let row = firstSearchRow; row <= lastSearchRow; row++) {
       for (let col = firstSearchCol; col <= lastSearchCol; col++) {
