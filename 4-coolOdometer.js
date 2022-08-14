@@ -3,14 +3,14 @@
 // otherwise, return a 0
 // odo must be greater than 99
 
-function isInteresting(number, awesomePhrases) {
-  
+function isInteresting(number, awesomePhrases = []) {
+
   function findMatch(number) {
-    return checkOnTheNose() || checkAllSame() || checkSequential() || checkPalindrome() || checkAwesome()
+    return checkOver99(number) ? checkOnTheNose(number) || checkAllSame(number) || checkSequential(number) || checkPalindrome(number) || checkAwesome(number) : false
   }
 
   function findClose(number) {
-    const within = [number - 1, number - 2]
+    const within = [number + 1, number + 2]
     for (let see of within) {
       if (findMatch(see)) {
         return true
@@ -50,7 +50,7 @@ function isInteresting(number, awesomePhrases) {
   
   function checkPalindrome(number) {
     const strNum = number.toString()
-    for (let i = 0; i < Math.trunc(strNum.length / 2 - 1); i++) {
+    for (let i = 0; i <= Math.trunc(strNum.length / 2 - 1); i++) {
       if (strNum[i] !== strNum[strNum.length - 1 - i]) {
         return false
       }
@@ -64,3 +64,7 @@ function isInteresting(number, awesomePhrases) {
   
   return findMatch(number) ? 2 : findClose(number) ? 1 : 0
 }
+
+console.log(
+  isInteresting(1335, [1337])
+)
