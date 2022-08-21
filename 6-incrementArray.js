@@ -1,18 +1,28 @@
 const upArray = (arr) => {
   const out = arr;
-  out[out.length - 1] += 1;
+  if (out[out.length - 1] < 0 || out[out.length - 1] > 9) {
+    return null;
+  }
+  if (out.length === 0) {
+    return null;
+  }
 
-  function rollTen(index) {
-    if (out[index] < 0) {
-      return null;
+  function rollTen(index, acted = false) {
+    if (out[index] < 0 || out[index] > 9) {
+      if (!acted && out[index] !== 10) {
+        return null;
+      }
     }
+
     if (index > 0) {
       if (out[index] === 10) {
         out[index] = 0;
         out[index - 1] += 1;
-        return rollTen(index - 1);
+        return rollTen(index - 1, true);
       }
+      return rollTen(index - 1);
     }
+
     if (out[index] === 10) {
       out[index] = 0;
       out.unshift(1);
@@ -20,7 +30,8 @@ const upArray = (arr) => {
     return true;
   }
 
-  return rollTen(out.length - 1) ? out : null;
+  out[out.length - 1] += 1;
+  return rollTen(out.length - 1, true) ? out : null;
 };
 
-console.log(upArray([9, 9, 9]));
+module.exports = upArray;
