@@ -1,9 +1,12 @@
 {
     "env": {
         "browser": true,
+        "jest/globals": true,
         "es2021": true
     },
     "extends": [
+        "plugin:jest/recommended",
+        "plugin:jest/style",
         "airbnb-base",
         "prettier"
     ],
@@ -11,13 +14,23 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["prettier"],
+    "plugins": [
+        "prettier",
+        "jest"
+    ],
     "rules": {
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
         "prettier/prettier": "error",
         "no-restricted-syntax": 0,
         "no-plusplus": [
-            2, 
-            { "allowForLoopAfterthoughts": true }
+            2,
+            {
+                "allowForLoopAfterthoughts": true
+            }
         ],
         "guard-for-in": 0
     }
