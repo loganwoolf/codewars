@@ -12,7 +12,7 @@ function splitToRails(string, numberRails) {
     outputArr.push([]);
   }
   for (let i = 0; i < string.length; i++) {
-    const cycle = 2 * numberRails - 2;
+    const cycle = 2 * numberRails - 2 || 1;
     const order = i % cycle;
     let row = order;
     if (order > cycle / 2) {

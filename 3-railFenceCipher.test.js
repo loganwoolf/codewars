@@ -8,6 +8,28 @@ const {
 describe('Split to rails', () => {
   const string = '01234567012345670';
   describe('First rail is:', () => {
+    test('same as original with 1 rail', () => {
+      const rails = 1;
+      expect(splitToRails(string, rails)[0]).toStrictEqual([
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '0',
+      ]);
+    });
     test('every even letter with 2 rails', () => {
       const rails = 2;
       expect(splitToRails(string, rails)[0]).toStrictEqual([
@@ -84,7 +106,7 @@ describe('Split to rails', () => {
       ]);
     });
 
-    test('every 14th letter with 8 rails', () => {
+    test('correct with 8 rails', () => {
       const rails = 8;
       expect(splitToRails(string, rails)[1]).toStrictEqual(['1', '5', '7']);
     });
