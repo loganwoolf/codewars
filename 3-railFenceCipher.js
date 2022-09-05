@@ -23,12 +23,48 @@ function encodeRailFenceCipher(string, numberRails) {
   );
 }
 
-function decodeRailFenceCipher(string, numberRails) {
-  // code
+function buildRails(code, numberRails) {
+  const outputArr = [];
+
+  const cycle = 2 * numberRails - 2;
+  const extraCount = (code.length - 1) % cycle;
+
+  const railLength = Math.ceil(code.length / cycle) - 1;
+  let highChecker = numberRails - 1;
+  let lowChecker = highChecker;
+  let sliceIndex = code.length;
+
+  for (let rail = numberRails - 1; rail > 0; rail--) {
+    let sliceLength = railLength;
+    if (rail < numberRails - 1) {
+      sliceLength += 1;
+      if (lowChecker <= extraCount) {
+        sliceLength += 1;
+      }
+    }
+
+    if (extraCount >= highChecker) {
+      sliceLength += 1;
+    }
+
+    outputArr.unshift(code.slice(sliceIndex - sliceLength, sliceIndex));
+
+    sliceIndex -= sliceLength;
+    highChecker += 1;
+    lowChecker -= 1;
+  }
+  outputArr.unshift(code.slice(0, sliceIndex));
+
+  return outputArr;
 }
+
+// function decodeRailFenceCipher(string, numberRails) {
+
+// }
 
 module.exports = {
   encodeRailFenceCipher,
   splitToRails,
-  decodeRailFenceCipher,
+  buildRails,
+  // decodeRailFenceCipher,
 };

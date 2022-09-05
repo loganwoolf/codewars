@@ -1,7 +1,8 @@
 const {
   encodeRailFenceCipher,
   splitToRails,
-  decodeRailFenceCipher,
+  buildRails,
+  // decodeRailFenceCipher,
 } = require('./3-railFenceCipher');
 
 describe('Split to rails function', () => {
@@ -138,5 +139,71 @@ describe('Encode function', () => {
   });
   test(`Correctly encodes string using too many rails`, () => {
     expect(encodeRailFenceCipher(string, 24)).toBe('0123456701234567');
+  });
+});
+
+describe('Build rails function', () => {
+  describe('With two rails:', () => {
+    const rails = 2;
+    test('First rail is correct', () => {
+      const code = encodeRailFenceCipher('0123456701234567', 2);
+      expect(buildRails(code, rails)[0]).toBe('02460246');
+    });
+    test('Last rail is correct', () => {
+      const code = encodeRailFenceCipher('012345670', 2);
+      expect(buildRails(code, rails)[1]).toBe('1357');
+    });
+  });
+
+  describe('With three rails:', () => {
+    const rails = 3;
+    test('Last rail is correct when just enough extras exist', () => {
+      const code = encodeRailFenceCipher('0123012', rails);
+      expect(buildRails(code, rails)[rails - 1]).toBe('22');
+    });
+    test('Last rail is correct when fewer extras exist', () => {
+      const code = encodeRailFenceCipher('012301', rails);
+      expect(buildRails(code, rails)[rails - 1]).toBe('2');
+    });
+    test('Second last rail is correct when not enough extras exist', () => {
+      const code = encodeRailFenceCipher('0123012', rails);
+      expect(buildRails(code, rails)[rails - 2]).toBe('131');
+    });
+    test('First rail is correct when just enough extras exist', () => {
+      const code = encodeRailFenceCipher('01230', rails);
+      expect(buildRails(code, rails)[0]).toBe('00');
+    });
+  });
+
+  describe('With four rails:', () => {
+    const rails = 4;
+    test('Last rail is correct when just enough extras exist', () => {
+      const code = encodeRailFenceCipher('0123450123', rails);
+      expect(buildRails(code, rails)[rails - 1]).toBe('33');
+    });
+    test('Last rail is correct when fewer extras exist', () => {
+      const code = encodeRailFenceCipher('012345012', rails);
+      expect(buildRails(code, rails)[rails - 1]).toBe('3');
+    });
+    test('Second last rail is correct when more extras exist', () => {
+      const code = encodeRailFenceCipher('012345012345', rails);
+      expect(buildRails(code, rails)[rails - 2]).toBe('2424');
+    });
+    test('Second last rail is correct when fewer extras exist', () => {
+      const code = encodeRailFenceCipher('0123450123', rails);
+      expect(buildRails(code, rails)[rails - 2]).toBe('242');
+    });
+    test('Second last rail is correct for a single full cycle', () => {
+      const code = encodeRailFenceCipher('0123450', rails);
+      expect(buildRails(code, rails)[1]).toBe('15');
+    });
+    test('First rail is correct when just enough extras exist', () => {
+      const code = encodeRailFenceCipher('0123450', rails);
+      expect(buildRails(code, rails)[0]).toBe('00');
+    });
+    test('First rail is correct when rails not full', () => {
+      const code = encodeRailFenceCipher('012345', rails);
+      expect(buildRails(code, rails)[0]).toBe('0');
+    });
   });
 });
