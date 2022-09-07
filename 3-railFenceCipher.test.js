@@ -201,9 +201,17 @@ describe('Build rails function', () => {
       const code = encodeRailFenceCipher('0123450', rails);
       expect(buildRails(code, rails)[0]).toBe('00');
     });
-    test('First rail is correct when rails not full', () => {
+  });
+
+  describe('When code is less than one cycle', () => {
+    const rails = 4;
+    test('First rail is correct', () => {
       const code = encodeRailFenceCipher('012345', rails);
       expect(buildRails(code, rails)[0]).toBe('0');
+    });
+    test('Last rail is correct when populated', () => {
+      const code = encodeRailFenceCipher('012345', rails);
+      expect(buildRails(code, rails)[rails - 1]).toBe('3');
     });
   });
 });
