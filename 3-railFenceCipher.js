@@ -60,8 +60,10 @@ function buildRails(code, numberRails) {
         sliceLength += 1;
       }
     }
-
-    outputArr.unshift(code.slice(sliceIndex - sliceLength, sliceIndex));
+    const character = code.slice(sliceIndex - sliceLength, sliceIndex);
+    if (character) {
+      outputArr.unshift(character);
+    }
 
     sliceIndex -= sliceLength;
     highChecker += 1;

@@ -211,7 +211,7 @@ describe('Build rails function', () => {
       });
       test('Last rail is correct when not populated', () => {
         const code = encodeRailFenceCipher('012', rails);
-        expect(buildRails(code, rails)[rails - 1]).toBe('');
+        expect(buildRails(code, rails)[rails - 1]).toBeUndefined();
       });
       test('Second last rail is correct when fully populated', () => {
         const code = encodeRailFenceCipher('01234', rails);
