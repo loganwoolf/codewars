@@ -74,13 +74,25 @@ function buildRails(code, numberRails) {
   return outputArr;
 }
 
-// function decodeRailFenceCipher(string, numberRails) {
-
-// }
+function decodeRailFenceCipher(code, numberRails) {
+  const outputArr = [];
+  const sorted = buildRails(code, numberRails).map((arr) => arr.split(''));
+  const cycle = 2 * numberRails - 2 || 1;
+  for (let i = 0; i < code.length; i++) {
+    const order = i % cycle;
+    let row = order;
+    if (order > cycle / 2) {
+      row = cycle - order;
+    }
+    const character = sorted[row].shift();
+    outputArr.push(character);
+  }
+  return outputArr.join('');
+}
 
 module.exports = {
   encodeRailFenceCipher,
   splitToRails,
   buildRails,
-  // decodeRailFenceCipher,
+  decodeRailFenceCipher,
 };
