@@ -51,7 +51,7 @@ function buildRails(code, numberRails) {
       }
     } else {
       if (rail < numberRails - 1) {
-        sliceLength += 1;
+        sliceLength += railLength;
         if (lowChecker <= extraCount) {
           sliceLength += 1;
         }
