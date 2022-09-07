@@ -29,7 +29,7 @@ function buildRails(code, numberRails) {
   const cycle = 2 * numberRails - 2;
   const extraCount = (code.length - 1) % cycle;
 
-  const railLength = Math.ceil(code.length / cycle) - 1;
+  const railLength = Math.ceil(code.length / cycle) - 1 || 1;
   let highChecker = numberRails - 1;
   let lowChecker = highChecker;
   let sliceIndex = code.length;
