@@ -2,7 +2,7 @@ const {
   encodeRailFenceCipher,
   splitToRails,
   buildRails,
-  // decodeRailFenceCipher,
+  decodeRailFenceCipher,
 } = require('./3-railFenceCipher');
 
 describe('Split to rails function', () => {
@@ -124,6 +124,41 @@ describe('Split to rails function', () => {
       expect(splitToRails(string, rails)[1]).toStrictEqual(['1', '5', '7']);
     });
   });
+
+  test('Sample string', () => {
+    const newString = 'WEAREDISCOVEREDFLEEATONCE';
+    expect(splitToRails(newString, 3)[0]).toStrictEqual([
+      'W',
+      'E',
+      'C',
+      'R',
+      'L',
+      'T',
+      'E',
+    ]);
+    expect(splitToRails(newString, 3)[1]).toStrictEqual([
+      'E',
+      'R',
+      'D',
+      'S',
+      'O',
+      'E',
+      'E',
+      'F',
+      'E',
+      'A',
+      'O',
+      'C',
+    ]);
+    expect(splitToRails(newString, 3)[2]).toStrictEqual([
+      'A',
+      'I',
+      'V',
+      'D',
+      'E',
+      'N',
+    ]);
+  });
 });
 
 describe('Encode function', () => {
@@ -136,6 +171,12 @@ describe('Encode function', () => {
   });
   test(`Correctly encodes string using 3 rails`, () => {
     expect(encodeRailFenceCipher(string, 3)).toBe('0404135713572626');
+  });
+  test(`Correctly encodes sample string using 3 rails`, () => {
+    const newString = 'WEAREDISCOVEREDFLEEATONCE';
+    expect(encodeRailFenceCipher(newString, 3)).toBe(
+      'WECRLTEERDSOEEFEAOCAIVDEN',
+    );
   });
   test(`Correctly encodes a short string using 4 rails`, () => {
     expect(encodeRailFenceCipher('01234', 4)).toBe('01243');
@@ -175,6 +216,18 @@ describe('Build rails function', () => {
     test('First rail is correct when just enough extras exist', () => {
       const code = encodeRailFenceCipher('01230', rails);
       expect(buildRails(code, rails)[0]).toBe('00');
+    });
+    describe('With a sample string', () => {
+      const code = encodeRailFenceCipher('WEAREDISCOVEREDFLEEATONCE', rails);
+      test('First row is correct', () => {
+        expect(buildRails(code, rails)[0]).toBe('WECRLTE');
+      });
+      test('Middle row is correct', () => {
+        expect(buildRails(code, rails)[1]).toBe('ERDSOEEFEAOC');
+      });
+      test('Last row is correct', () => {
+        expect(buildRails(code, rails)[2]).toBe('AIVDEN');
+      });
     });
   });
 
@@ -226,5 +279,25 @@ describe('Build rails function', () => {
         expect(buildRails(code, rails)[0]).toBe('0');
       });
     });
+  });
+});
+
+describe('Decode function', () => {
+  const string = '01234567012345670123456701234';
+  const railsArray = [1, 2, 3, 4, 5, 8];
+
+  railsArray.forEach((rails) => {
+    test(`Correctly decodes string using ${rails} rails`, () => {
+      expect(
+        decodeRailFenceCipher(encodeRailFenceCipher(string, rails), rails),
+      ).toBe(string);
+    });
+  });
+
+  const newString = 'WECRLTEERDSOEEFEAOCAIVDEN';
+  test('Correctly decodes a sample string using 3 rails', () => {
+    expect(decodeRailFenceCipher(newString, 3)).toBe(
+      'WEAREDISCOVEREDFLEEATONCE',
+    );
   });
 });
