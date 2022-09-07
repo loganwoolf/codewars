@@ -137,6 +137,9 @@ describe('Encode function', () => {
   test(`Correctly encodes string using 3 rails`, () => {
     expect(encodeRailFenceCipher(string, 3)).toBe('0404135713572626');
   });
+  test(`Correctly encodes a short string using 4 rails`, () => {
+    expect(encodeRailFenceCipher('01234', 4)).toBe('01243');
+  });
   test(`Correctly encodes string using too many rails`, () => {
     expect(encodeRailFenceCipher(string, 24)).toBe('0123456701234567');
   });
@@ -201,17 +204,27 @@ describe('Build rails function', () => {
       const code = encodeRailFenceCipher('0123450', rails);
       expect(buildRails(code, rails)[0]).toBe('00');
     });
-  });
-
-  describe('When code is less than one cycle', () => {
-    const rails = 4;
-    test('First rail is correct', () => {
-      const code = encodeRailFenceCipher('012345', rails);
-      expect(buildRails(code, rails)[0]).toBe('0');
-    });
-    test('Last rail is correct when populated', () => {
-      const code = encodeRailFenceCipher('012345', rails);
-      expect(buildRails(code, rails)[rails - 1]).toBe('3');
+    describe('When code is less than one cycle', () => {
+      test('Last rail is correct when populated', () => {
+        const code = encodeRailFenceCipher('01234', rails);
+        expect(buildRails(code, rails)[rails - 1]).toBe('3');
+      });
+      test('Last rail is correct when not populated', () => {
+        const code = encodeRailFenceCipher('012', rails);
+        expect(buildRails(code, rails)[rails - 1]).toBe('');
+      });
+      test('Second last rail is correct when fully populated', () => {
+        const code = encodeRailFenceCipher('01234', rails);
+        expect(buildRails(code, rails)[rails - 2]).toBe('24');
+      });
+      test('Third last rail is correct when partially populated', () => {
+        const code = encodeRailFenceCipher('01234', rails);
+        expect(buildRails(code, rails)[rails - 3]).toBe('1');
+      });
+      test('First rail is correct', () => {
+        const code = encodeRailFenceCipher('01234', rails);
+        expect(buildRails(code, rails)[0]).toBe('0');
+      });
     });
   });
 });
