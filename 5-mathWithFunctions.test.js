@@ -25,16 +25,31 @@ describe('module mathWithFunctions', () => {
   describe('when calling operator function for first time', () => {
     it('returns the first number and the operation to call', () => {
       expect(plus(four())).toMatchObject({ num: 4, op: '+' });
-      expect(minus(four())).toMatchObject({ num: 4, op: '-' });
-      expect(times(four())).toMatchObject({ num: 4, op: '*' });
-      expect(dividedBy(four())).toMatchObject({ num: 4, op: '/' });
+      expect(minus(zero())).toMatchObject({ num: 0, op: '-' });
+      expect(times(six())).toMatchObject({ num: 6, op: '*' });
+      expect(dividedBy(nine())).toMatchObject({ num: 9, op: '/' });
     });
   });
-  it('composes functions to do math', () => {
-    expect(four(plus(four()))).toBe(8);
-    expect(four(minus(five()))).toBe(-1);
-    expect(six(times(five()))).toBe(30);
-    expect(eight(dividedBy(three()))).toBe(2);
-    expect(nine(dividedBy(three()))).toBe(3);
+  describe('composing functions to do math', () => {
+    it('uses zero correctly', () => {
+      expect(zero(times(three()))).toBe(0);
+      expect(zero(minus(three()))).toBe(-3);
+      expect(zero(dividedBy(three()))).toBe(0);
+      expect(nine(dividedBy(zero()))).toBe(Infinity);
+      expect(zero(dividedBy(zero()))).toBeNaN();
+    });
+    it('adds correctly', () => {
+      expect(four(plus(four()))).toBe(8);
+    });
+    it('subtracts correctly', () => {
+      expect(four(minus(five()))).toBe(-1);
+    });
+    it('multiplies correctly', () => {
+      expect(six(times(five()))).toBe(30);
+    });
+    it('divides correctly', () => {
+      expect(eight(dividedBy(three()))).toBe(2);
+      expect(nine(dividedBy(three()))).toBe(3);
+    });
   });
 });
