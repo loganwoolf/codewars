@@ -36,7 +36,9 @@ const differentiate = (polynomial, point) => {
   }, 0);
 };
 
-console.log(differentiate('-19x^2-15x+32', 3));
+module.export = { differentiate };
+
+// console.log(differentiate('-19x^2-15x+32', 3));
 
 /**
  * Create a function that differentiates a polynomial for a given value of x.
