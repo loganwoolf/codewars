@@ -49,16 +49,16 @@ const nine = (a) => {
 };
 
 function plus(a, b) {
-  return a && b ? a + b : { ...a, op: '+' };
+  return a && b ? b + a : { ...a, op: '+' };
 }
 function minus(a, b) {
-  return a && b ? a - b : { ...a, op: '+' };
+  return a && b ? b - a : { ...a, op: '-' };
 }
 function times(a, b) {
-  return a && b ? a * b : { ...a, op: '+' };
+  return a && b ? b * a : { ...a, op: '*' };
 }
 function dividedBy(a, b) {
-  return a && b ? Math.floor(a / b) : { ...a, op: '+' };
+  return a && b ? Math.floor(b / a) : { ...a, op: '/' };
 }
 
 module.exports = {
