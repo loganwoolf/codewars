@@ -1,4 +1,16 @@
-const countChars = () => {};
+const countChars = (str) => {
+  const outputObj = {};
+
+  for (const letter of str) {
+    if (!outputObj[letter]) {
+      outputObj[letter] = 1;
+    } else {
+      outputObj[letter] += 1;
+    }
+  }
+
+  return outputObj;
+};
 
 module.exports = { countChars };
 
