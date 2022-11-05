@@ -1,3 +1,9 @@
+const plus = (a, b) => (checkTruthyOrZero(a, b) ? a + b : { ...a, op: '+' });
+const minus = (a, b) => (checkTruthyOrZero(a, b) ? a - b : { ...a, op: '-' });
+const times = (a, b) => (checkTruthyOrZero(a, b) ? a * b : { ...a, op: '*' });
+const dividedBy = (a, b) =>
+  checkTruthyOrZero(a, b) ? Math.floor(a / b) : { ...a, op: '/' };
+
 const operation = {
   '+': plus,
   '-': minus,
@@ -49,19 +55,6 @@ const nine = (a) => {
   const num = 9;
   return passValues(a, num);
 };
-
-function plus(a, b) {
-  return checkTruthyOrZero(a, b) ? a + b : { ...a, op: '+' };
-}
-function minus(a, b) {
-  return checkTruthyOrZero(a, b) ? a - b : { ...a, op: '-' };
-}
-function times(a, b) {
-  return checkTruthyOrZero(a, b) ? a * b : { ...a, op: '*' };
-}
-function dividedBy(a, b) {
-  return checkTruthyOrZero(a, b) ? Math.floor(a / b) : { ...a, op: '/' };
-}
 
 module.exports = {
   zero,
