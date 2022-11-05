@@ -25,13 +25,15 @@
         "jest/prefer-to-have-length": "warn",
         "jest/valid-expect": "error",
         "prettier/prettier": "error",
-        "no-restricted-syntax": 0,
+        "guard-for-in": 0,
+        "no-nested-ternary": "off",
         "no-plusplus": [
             2,
             {
                 "allowForLoopAfterthoughts": true
             }
         ],
-        "guard-for-in": 0
+        "no-restricted-syntax": 0,
+        "no-use-before-define": "off"
     }
 }
