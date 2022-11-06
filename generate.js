@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 
-const fileName = process.argv[2];
-const functionName = process.argv[3];
+const [, , fileName, ...functionNames] = process.argv;
 
-if (process.argv.length < 3) {
+if (!fileName) {
   console.error(
     `Generate a *.js and *.test.js file with a given
 file name and function name.
@@ -20,28 +19,41 @@ $ node generate newKata getSum
   process.exit();
 }
 
-const writeFiles = () => {
-  fs.writeFileSync(
-    `${fileName}.js`,
-    `const ${functionName} = () => {
-    // function body
-  };
-  
-  module.exports = { ${functionName} };
-  `,
-  );
+const createFunctions = () => {
+  let outputString = '';
+  functionNames.forEach((functionName) => {
+    outputString += `const ${functionName} = () => {
+  // function body
+};
 
-  fs.writeFileSync(
-    `${fileName}.test.js`,
-    `const { ${functionName} } = require('./${fileName}');
-  
-  describe('Function ${functionName}', () => {
-    it('should...', () => {
-      // expect();
-    });
+`;
   });
-  `,
-  );
+  outputString += `module.exports = { ${functionNames.join(', ')} };
+`;
+  return outputString;
+};
+
+const createTests = () => {
+  let outputString = `const { ${functionNames.join(', ')} }`;
+  outputString += ` = require('./${fileName}');
+`;
+
+  functionNames.forEach((functionName) => {
+    outputString += `
+describe('Function ${functionName}', () => {
+  it('should...', () => {
+    // expect();
+  });
+});
+`;
+  });
+
+  return outputString;
+};
+
+const writeFiles = () => {
+  fs.writeFileSync(`${fileName}.js`, createFunctions());
+  fs.writeFileSync(`${fileName}.test.js`, createTests());
 };
 
 writeFiles();
