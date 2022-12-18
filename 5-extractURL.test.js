@@ -1,6 +1,11 @@
-const { domainName, removeProtocol } = require('./5-extractURL');
+const {
+  domainName,
+  removeProtocol,
+  removeSlug,
+  removeTLD,
+} = require('./5-extractURL');
 
-describe('Function domainName', () => {
+describe.skip('Function domainName', () => {
   const testCases = [
     {
       test: 'http://www.loganwoolf.com/',
@@ -36,5 +41,34 @@ describe('Function removeProtocol', () => {
 
   it('returns same input if no protocol', () => {
     expect(removeProtocol(suffix)).toBe(suffix);
+  });
+});
+
+describe('Function removeSlug', () => {
+  it('should remove the slug when it exists', () => {
+    expect(removeSlug('www.loganwoolf.com/store')).toBe('www.loganwoolf.com');
+    expect(removeSlug('www.loganwoolf.com/store/products')).toBe(
+      'www.loganwoolf.com',
+    );
+  });
+
+  it('should remove the trailing slash from a url', () =>
+    expect(removeSlug('www.loganwoolf.com/')).toBe('www.loganwoolf.com'));
+
+  it('should not change urls with no slug', () =>
+    expect(removeSlug('www.loganwoolf.com')).toBe('www.loganwoolf.com'));
+});
+
+describe('Function removeTLD', () => {
+  it('removes the TLD from the URL where no subdomain', () => {
+    expect(removeTLD('loganwoolf.com')).toBe('loganwoolf');
+  });
+  it('removes the TLD from the URL where one subdomain', () => {
+    expect(removeTLD('store.loganwoolf.com')).toBe('store.loganwoolf');
+  });
+  it('removes the TLD from the URL where two subdomains', () => {
+    expect(removeTLD('apparel.store.loganwoolf.com')).toBe(
+      'apparel.store.loganwoolf',
+    );
   });
 });
