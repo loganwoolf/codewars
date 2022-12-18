@@ -24,6 +24,10 @@ describe('Function domainName', () => {
       test: 'store.loganwoolf.com/stuff',
       domain: 'loganwoolf',
     },
+    {
+      test: 'store.loganwoolf.co.uk/stuff',
+      domain: 'loganwoolf',
+    },
   ];
   testCases.forEach((testCase) => {
     it(`should work with ${testCase.test}`, () => {
@@ -71,6 +75,10 @@ describe('Function removeTLD', () => {
     expect(removeTLD('apparel.store.loganwoolf.com')).toBe(
       'apparel.store.loganwoolf',
     );
+  });
+  it('removes a country specific ".co.xx" TDL', () => {
+    expect(removeTLD('loganwoolf.co.uk')).toBe('loganwoolf');
+    expect(removeTLD('store.loganwoolf.co.uk')).toBe('store.loganwoolf');
   });
 });
 
