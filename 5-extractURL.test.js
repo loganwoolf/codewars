@@ -3,9 +3,10 @@ const {
   removeProtocol,
   removeSlug,
   removeTLD,
+  removeSubdomains,
 } = require('./5-extractURL');
 
-describe.skip('Function domainName', () => {
+describe('Function domainName', () => {
   const testCases = [
     {
       test: 'http://www.loganwoolf.com/',
@@ -70,5 +71,19 @@ describe('Function removeTLD', () => {
     expect(removeTLD('apparel.store.loganwoolf.com')).toBe(
       'apparel.store.loganwoolf',
     );
+  });
+});
+
+describe('Functions removeSubdomains', () => {
+  it('works with multiple subdomains', () => {
+    expect(removeSubdomains('sport.apparel.store.loganwoolf')).toBe(
+      'loganwoolf',
+    );
+  });
+  it('works with one subdomain', () => {
+    expect(removeSubdomains('store.loganwoolf')).toBe('loganwoolf');
+  });
+  it('works with no subdomains', () => {
+    expect(removeSubdomains('loganwoolf')).toBe('loganwoolf');
   });
 });
