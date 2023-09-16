@@ -1,9 +1,18 @@
-const cakes = (recipe, available) => {
-  for (const ingredient in recipe) {
-    return available.hasOwnProperty(ingredient)
-      ? Math.floor(available[ingredient] / recipe[ingredient])
-      : 0;
-  }
+const enoughToMake = (ingredientQuantity, pantryItem) => {
+  const enoughFor = pantryItem
+    ? Math.floor(pantryItem / ingredientQuantity)
+    : 0;
+  return enoughFor;
 };
 
-module.exports = { cakes };
+const cakes = (recipe, pantry) => {
+  let total = Infinity;
+  for (const ingredient in recipe) {
+    const count = enoughToMake(recipe[ingredient], pantry?.[ingredient]);
+    if (!count) return 0;
+    if (count < total) total = count;
+  }
+  return total;
+};
+
+module.exports = { enoughToMake, cakes };
