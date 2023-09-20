@@ -14,14 +14,14 @@ function movingShift(clearText, shift) {
       // determine if capital or lowercase
       if (clearCode >= 65 && clearCode <= 90) {
         // apply shift based on character position and fn parameter
-        cryptCode = clearCode + (+i) + shift;
+        cryptCode = clearCode + +i + shift;
         // return shifted code to capital letter range
         while (cryptCode > 90) {
           cryptCode -= 26;
         }
       } else if (clearCode >= 97 && clearCode <= 122) {
         // same as above but for lowercase letters
-        cryptCode = clearCode + (+i) + shift;
+        cryptCode = clearCode + +i + shift;
         while (cryptCode > 122) {
           cryptCode -= 26;
         }
@@ -38,7 +38,9 @@ function movingShift(clearText, shift) {
   const outputArr = [];
   const messageLength = Math.ceil(clearText.length / 5);
   for (let i = 0; i < 5; i++) {
-    outputArr.push(cryptText.slice(i * messageLength, i * messageLength + messageLength));
+    outputArr.push(
+      cryptText.slice(i * messageLength, i * messageLength + messageLength),
+    );
   }
 
   return outputArr;
@@ -65,14 +67,14 @@ function demovingShift(cryptMessages, shift) {
       // determine if capital or lowercase
       if (cryptCode >= 65 && cryptCode <= 90) {
         // apply shift based on character position and fn parameter
-        clearCode = cryptCode - (+i) - shift;
+        clearCode = cryptCode - +i - shift;
         // return code to ascii character range
         while (clearCode < 65) {
           clearCode += 26;
         }
       } else if (cryptCode >= 97 && cryptCode <= 122) {
         // if the character is lowercase letter
-        clearCode = cryptCode - (+i) - shift;
+        clearCode = cryptCode - +i - shift;
         while (clearCode < 97) {
           clearCode += 26;
         }
@@ -88,4 +90,10 @@ function demovingShift(cryptMessages, shift) {
   return clearText;
 }
 
-demovingShift(movingShift('I should have known that you would have a perfect answer for me!!!', -1), 1);
+demovingShift(
+  movingShift(
+    'I should have known that you would have a perfect answer for me!!!',
+    -1,
+  ),
+  1,
+);
